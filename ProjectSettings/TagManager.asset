@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Grid
   - Bullet
+  - ObjectiveNode
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
@@ -7,10 +8,10 @@ public class PlayerController : MonoBehaviour {
     //create platforms
 
     [Header("GameObjects")]
-    [SerializeField] private Rigidbody2D myRB;
-    [SerializeField] private Transform myTransform;
-    [SerializeField] private Collider2D myCollider;
-    [SerializeField] private Animator animator;
+    [SerializeField] Rigidbody2D myRB;
+    [SerializeField] Transform myTransform;
+    [SerializeField] Collider2D myCollider;
+    [SerializeField] Animator animator; 
 
     [Header("Variables")]
     private bool isGrounded;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour {
         PlayerRun();
         PlayerJump();
         CheckPlayerVelocity();
+        GetActions();
     }
 
     private void CheckPlayerVelocity() {
@@ -57,6 +59,15 @@ public class PlayerController : MonoBehaviour {
             else {
                 myRB.velocity = new Vector2(myRB.velocity.x, jumpSpeed);
             }
+        }
+    }
+
+    private void GetActions(){
+        if (Input.GetKeyDown(KeyCode.F)) {
+            SendMessage("SetAttackTalisman");
+        }
+        if (Input.GetKeyDown(KeyCode.G)) {
+            SendMessage("SetEnergyTalisman");
         }
     }
 }

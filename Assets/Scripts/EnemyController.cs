@@ -2,6 +2,8 @@
 
 public class EnemyController : MonoBehaviour {
 
+    [SerializeField] GridManager grid;
+
     [SerializeField] private int health = 10;
     [SerializeField] private Animator animator;
     bool b;
@@ -29,5 +31,13 @@ public class EnemyController : MonoBehaviour {
 
     public void KillMePlease() {
         Destroy(this.gameObject);
+    }
+
+    public GridManager GetGrid(){
+        return grid;
+    }
+
+    public void SetGrid(GridManager newGrid){
+        grid = newGrid;
     }
 }
