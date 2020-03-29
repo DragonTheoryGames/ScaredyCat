@@ -5,14 +5,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour {
 
     //TODO: be set to properly track enemy location/pathfinding
-    //TODO: Bullets need to kill themselves
-    [SerializeField] float speed = .00000000001f;
+    const float speed = .1f;
     [SerializeField] Transform target;
     [SerializeField] AttackTalisman Talisman;
 
     void FixedUpdate() {
         if (Talisman == null){
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
         else if (target != null) {
             transform.position = Vector2.MoveTowards(transform.position, target.position, speed);

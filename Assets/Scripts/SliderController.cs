@@ -1,25 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class SliderController : MonoBehaviour {
     
-    [SerializeField] GameObject Cat;
+    [SerializeField] GameObject character;
+    Transform charTForm;
+    Transform tForm;
+    Slider slider;
+
+    void Start() {
+        charTForm = character.GetComponent<Transform>();
+        tForm = GetComponent<Transform>();
+        slider = GetComponent<Slider>();
+    }
  
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         SetPosition();
-        UpdateValue();
     }
 
     void SetPosition(){
-        float CatPosX = Cat.GetComponent<Transform>().position.x;
-        float CatPosY = Cat.GetComponent<Transform>().position.y + 2;
-        GetComponent<Transform>().position = new Vector2(CatPosX, CatPosY);
+        float characterPosX = charTForm.position.x;
+        float characterPosY = charTForm.position.y + 2;
+        GetComponent<Transform>().position = new Vector2(characterPosX, characterPosY);
     }
 
-    void UpdateValue(){
-        this.GetComponent<Slider>().value = Cat.GetComponent<Talisman>().GetEnergy(); 
+    public void UpdateValue(int value) {
+        slider.value = value;
     }
 }

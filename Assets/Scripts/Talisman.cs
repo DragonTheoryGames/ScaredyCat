@@ -16,7 +16,8 @@ public class Talisman : MonoBehaviour {
     int platformTalismanCost = 5;
     [SerializeField] int energyGain = 1;
     float lastTime;
-    [SerializeField] float energyTime; 
+    [SerializeField] float energyTime;
+    [SerializeField] SliderController energyBar;
 
     void Start() {
        lastTime = Time.time; 
@@ -24,6 +25,7 @@ public class Talisman : MonoBehaviour {
 
     void FixedUpdate() { 
         StaticEnergyIncrease();
+        UpdateEnergy();
     }
 
     void OnTriggerEnter2D(Collider2D col) {
@@ -53,6 +55,7 @@ public class Talisman : MonoBehaviour {
         if (energy >= platformTalismanCost){
             Vector3 transPos = new Vector3(transform.position.x, (transform.position.y - 1.2f), transform.position.z);
             GameObject currentTalisman = Instantiate(PlatformTalisman, transPos, transform.rotation);
+            currentTalisman.GetComponent<PlatformController>().player = this.GetComponent<Rigidbody2D>(); 
             energy -= platformTalismanCost;
         } 
     }
@@ -71,7 +74,7 @@ public class Talisman : MonoBehaviour {
         }
     }
 
-    public int GetEnergy() { //called by SliderController
-        return energy;
+    public void UpdateEnergy() {
+        energyBar.UpdateValue(energy);
     }
 }

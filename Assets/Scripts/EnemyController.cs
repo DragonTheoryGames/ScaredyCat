@@ -3,16 +3,32 @@
 public class EnemyController : MonoBehaviour {
 
     [SerializeField] GridManager grid;
+    [SerializeField] public SliderController healthBar;
 
     [SerializeField] private int health = 10;
     [SerializeField] private Animator animator;
+    private EnemyPathing pathing;
+    public bool isDying = false;
     bool b;
+
+    void Start() {
+        pathing = gameObject.GetComponent<EnemyPathing>();
+        healthBar = GetComponentInChildren<SliderController>();
+    }
 
     public void takeDamage(int damage) {
         health -= damage;
         if (health <= 0) {
             animator.SetBool("isDying", true);
+            pathing.speed = 0;
+            isDying = true;
+            //TODO: make list of attackers to notify upon death.
         }
+        UpdateHealth();
+    }
+
+    void UpdateHealth(){
+        healthBar.UpdateValue(health);
     }
 
     //TODO: move to Bullet, maybe with a SendMessage

@@ -6,6 +6,7 @@ public class AttackTalisman : MonoBehaviour {
     
     [SerializeField] Bullet bullet;
     [SerializeField] Transform target = null;
+    bool hastarget = false;
     GridManager gridManager;
     float talismanX;
     float talismanY;
@@ -15,13 +16,15 @@ public class AttackTalisman : MonoBehaviour {
         talismanY = GetComponent<Transform>().TransformPoint(Vector2.zero).y;
     }
 
-    public void FireBullet() { //called from animation
+    private void FixedUpdate() {
         FindTarget();
+    }
+
+    public void FireBullet() { //called from animation
         if (target != null) {
             Instantiate(bullet, transform.position, transform.rotation);
             bullet.GetComponent<Bullet>().SetTalisman(GetComponent<AttackTalisman>());
-        }
-        
+        } 
     }
 
     public void SetGridManager(GridManager parentGridManager){
@@ -29,17 +32,29 @@ public class AttackTalisman : MonoBehaviour {
     }
 
     public void FindTarget() {
-        if (target == null) {
-            Debug.Log(target);
+        if (!hastarget) {
             List<EnemyController> enemies = gridManager.GetEnemies();
             float enemyDistance = 0;
 
             if (enemies.Count <= 0) {
                 return;
             }
-            foreach (EnemyController enemy in enemies) { //replace with a raycast.
+            foreach (EnemyController enemy in enemies) {
+                try {
+                    if (!enemy.GetComponent<EnemyController>().isDying){};
+                }
+
+                catch {
+                    continue;
+                }
+                if (enemy.GetComponent<EnemyController>().isDying) {
+                    continue;
+                }
+
                 Transform enemyTransform = enemy.GetComponent<Transform>();
-    
+
+                
+
                 float enemyX = enemyTransform.TransformPoint(Vector2.zero).x;
                 float enemyY = enemyTransform.TransformPoint(Vector2.zero).y;
 
@@ -53,10 +68,14 @@ public class AttackTalisman : MonoBehaviour {
                     
                 }
                 else if(distance < enemyDistance) {
+                    hastarget = true;
                     target = enemyTransform;
                     enemyDistance = distance;
                 }
             }
+        }
+        if (target.GetComponent<EnemyController>().isDying == true){
+            hastarget = false;
         }
     }
 
