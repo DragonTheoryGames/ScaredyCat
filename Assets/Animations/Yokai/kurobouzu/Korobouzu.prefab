@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 9053189312402273743}
   m_Layer: 11
   m_Name: Korobouzu
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -528,6 +528,7 @@ MonoBehaviour:
   health: 15
   animator: {fileID: 9053189312201172094}
   isDying: 0
+  damage: 15
 --- !u!95 &9053189312201172094
 Animator:
   serializedVersion: 3

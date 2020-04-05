@@ -11,6 +11,8 @@ public class EnemyController : MonoBehaviour {
     public bool isDying = false;
     bool b;
 
+    [SerializeField] int damage = 15;
+
     void Start() {
         pathing = gameObject.GetComponent<EnemyPathing>();
         healthBar = GetComponentInChildren<SliderController>();
@@ -37,6 +39,10 @@ public class EnemyController : MonoBehaviour {
             takeDamage(1);
             SetIsHurt(1);
             Destroy(col.gameObject);
+        }
+        else if (col.gameObject.tag == "Family") {
+            col.gameObject.GetComponent<HumanController>().UpdateSanity(damage);
+            KillMePlease();
         }
     }
 

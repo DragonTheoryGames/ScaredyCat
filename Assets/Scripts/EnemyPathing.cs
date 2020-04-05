@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyPathing : MonoBehaviour {
 
-    public float speed;
+    public float speed = 100;
     [SerializeField] Transform nextobjective;
     
     [Header("Transform")]

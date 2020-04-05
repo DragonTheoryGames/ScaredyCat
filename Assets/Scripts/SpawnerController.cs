@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnerController : MonoBehaviour {
     
@@ -12,8 +13,13 @@ public class SpawnerController : MonoBehaviour {
     Vector2 atticLeft = new Vector2(-75, 51.5f);
     Vector2 atticRight = new Vector2(75, 51.5f);
     [SerializeField] Transform atticCenter;
-    
+
+    [SerializeField] int totalEnemies = 20;
+    [SerializeField] int spawnedEnemies;
+
     [SerializeField] GameObject kurobouzu;
+
+    [SerializeField] Text victory;
 
     Vector2[] rooms = new Vector2[4];
 
@@ -22,10 +28,20 @@ public class SpawnerController : MonoBehaviour {
         StartCoroutine(SpawnEnemies());
     }
 
+    private void FixedUpdate() {
+        if(spawnedEnemies >= totalEnemies) {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            if (enemies.Length <= 0) {
+                victory.gameObject.SetActive(true);
+                Time.timeScale = 0;
+            }
+        }
+    }
+
     IEnumerator SpawnEnemies() {
         int i;
         Transform nextobjective;
-        for(i = 0; i < 50; i++) {
+        for(spawnedEnemies = 0; spawnedEnemies < totalEnemies; spawnedEnemies++) {
             int seconds = Random.Range(0, 10);
             int spawn = Random.Range(0, 4);
             yield return new WaitForSeconds(seconds);

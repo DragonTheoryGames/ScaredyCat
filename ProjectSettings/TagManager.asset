@@ -7,6 +7,8 @@ TagManager:
   - Grid
   - Bullet
   - ObjectiveNode
+  - Family
+  - Enemy
   layers:
   - Default
   - TransparentFX
