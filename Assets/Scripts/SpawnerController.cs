@@ -31,6 +31,7 @@ public class SpawnerController : MonoBehaviour {
     private void FixedUpdate() {
         if(spawnedEnemies >= totalEnemies) {
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            Debug.Log(enemies.Length);
             if (enemies.Length <= 0) {
                 victory.gameObject.SetActive(true);
                 Time.timeScale = 0;

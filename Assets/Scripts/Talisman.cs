@@ -23,10 +23,11 @@ public class Talisman : MonoBehaviour {
        lastTime = Time.time; 
     }
 
-    void FixedUpdate() { 
+    void FixedUpdate() {
         StaticEnergyIncrease();
         UpdateEnergy();
     }
+    
 
     void OnTriggerEnter2D(Collider2D col) {
         if (col.gameObject.tag == "Grid") {
@@ -35,7 +36,7 @@ public class Talisman : MonoBehaviour {
     }
 
     //TODO: face the enemy its attacking
-    void SetAttackTalisman() { //called by message from PlayerController
+    public void SetAttackTalisman() { //called by message from PlayerController
         if (energy >= attackTalismanCost) {
             GameObject currentTalisman = Instantiate(AttackTalisman, transform.position, transform.rotation);
             currentGrid.SetTalisman(currentTalisman);
@@ -43,7 +44,7 @@ public class Talisman : MonoBehaviour {
         }
     }
 
-    void SetEnergyTalisman() { //called by message from PlayerController
+    public void SetEnergyTalisman() { //called by message from PlayerController
         if (energy >= energyTalismanCost) {
             GameObject currentTalisman = Instantiate(EnergyTalisman, transform.position, transform.rotation);
             currentGrid.SetTalisman(currentTalisman);
@@ -51,9 +52,9 @@ public class Talisman : MonoBehaviour {
         }
     }
 
-    void CreatePlatform() {
+    public void CreatePlatform(float altX) {
         if (energy >= platformTalismanCost){
-            Vector3 transPos = new Vector3(transform.position.x, (transform.position.y - 1.2f), transform.position.z);
+            Vector3 transPos = new Vector3(transform.position.x + altX, (transform.position.y - 2f), transform.position.z);
             GameObject currentTalisman = Instantiate(PlatformTalisman, transPos, transform.rotation);
             currentTalisman.GetComponent<PlatformController>().player = this.GetComponent<Rigidbody2D>(); 
             energy -= platformTalismanCost;

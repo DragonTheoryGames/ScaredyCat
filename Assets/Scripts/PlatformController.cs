@@ -13,7 +13,7 @@ public class PlatformController : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.S)) {
+        if (Input.GetKey(KeyCode.Space) && player.velocity.y > 0 || Input.GetKey(KeyCode.S)) {
             box.enabled = false;
             playerJumping = true;
         }

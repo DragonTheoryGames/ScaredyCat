@@ -4,12 +4,13 @@ using UnityEngine.UI;
 public class HumanController : MonoBehaviour
 {
     [SerializeField] Slider slider;
-    [SerializeField] float sanity = 100;
+    [SerializeField] float sanity = 50;
 
     [SerializeField] Text gameOver;
 
-    public void UpdateSanity(int damage){
+    public void UpdateSanity(int damage) {
         sanity = sanity - damage;
+        if (sanity > 100) { sanity = 100; }
         UpdateValue();
     }
 

@@ -330,7 +330,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 20
   m_WholeNumbers: 1
-  m_Value: 15
+  m_Value: 20
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -525,7 +525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
   healthBar: {fileID: 4712678594473557870}
-  health: 15
+  health: 20
   animator: {fileID: 9053189312201172094}
   isDying: 0
   damage: 15

@@ -50,6 +50,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -101,8 +102,11 @@ MonoBehaviour:
   myTransform: {fileID: 9074351689087321827}
   myCollider: {fileID: 9074351689087321825}
   animator: {fileID: 9074351689087321830}
+  talisman: {fileID: 9074351689087321829}
+  talismanMenu: {fileID: 0}
+  isGrounded: 0
   moveSpeed: 900
-  jumpSpeed: 15
+  jumpSpeed: 40
 --- !u!50 &9074351689087321824
 Rigidbody2D:
   serializedVersion: 4
@@ -118,11 +122,11 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 6200000, guid: 38cc6c0f926210c42bbb4b2c08f2692e, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &9074351689087321825
 BoxCollider2D:
@@ -190,3 +194,4 @@ MonoBehaviour:
   energy: 50
   energyGain: 1
   energyTime: 2
+  energyBar: {fileID: 0}
