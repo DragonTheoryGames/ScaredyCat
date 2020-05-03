@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void CheckGround() {
-        if (!myCollider.IsTouchingLayers(LayerMask.GetMask("Platform"))) {
+        if (!myCollider.IsTouchingLayers(LayerMask.GetMask("Platform")) && !myCollider.IsTouchingLayers(LayerMask.GetMask("Floor"))) {
             isGrounded = false;
         }
         else {

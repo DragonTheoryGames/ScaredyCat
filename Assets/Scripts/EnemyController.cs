@@ -29,6 +29,11 @@ public class EnemyController : MonoBehaviour {
         UpdateHealth();
     }
 
+    public int GetDamage() {
+        return damage;
+
+    }
+
     void UpdateHealth(){
         healthBar.UpdateValue(health);
     }

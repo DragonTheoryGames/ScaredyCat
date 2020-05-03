@@ -1,85 +1,50 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AttackTalisman : MonoBehaviour {
     
     [SerializeField] Bullet bullet;
-    [SerializeField] Transform target = null;
-    bool hastarget = false;
-    GridManager gridManager;
-    float talismanX;
-    float talismanY;
+    Bullet myBullet;
+    [SerializeField] Transform target;
+
+    [SerializeField] LayerMask layerMask;
 
     void Start(){
-        talismanX = GetComponent<Transform>().TransformPoint(Vector2.zero).x;
-        talismanY = GetComponent<Transform>().TransformPoint(Vector2.zero).y;
-    }
-
-    private void FixedUpdate() {
-        FindTarget();
+        layerMask = ((1 << 11) | (1 << 14) | (1 << 15));
+        InvokeRepeating("FindTarget", 0f, 1.5f);
     }
 
     public void FireBullet() { //called from animation
         if (target != null) {
-            Instantiate(bullet, transform.position, transform.rotation);
-            bullet.GetComponent<Bullet>().SetTalisman(GetComponent<AttackTalisman>());
+            myBullet = Instantiate(bullet, transform.position, transform.rotation);
+            myBullet.GetComponent<Bullet>().target = target;
         } 
     }
 
-    public void SetGridManager(GridManager parentGridManager){
-        gridManager = parentGridManager;
-    }
-
-    public void FindTarget() {
-        if (!hastarget) {
-            List<EnemyController> enemies = gridManager.GetEnemies();
-            float enemyDistance = 0;
-
-            if (enemies.Count <= 0) {
-                return;
+    private void FindTarget() {
+        float shortestDistance = Mathf.Infinity;
+        Transform tempTarget = null;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        Vector3 rayDirection = Vector3.zero;
+        foreach (GameObject enemy in enemies) {
+            rayDirection = enemy.transform.position - this.transform.position;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, Mathf.Infinity, layerMask);
+            float distance = Vector3.Distance(this.transform.position, enemy.transform.position);
+            if (hit.collider.tag == "Enemy") {
+                Debug.DrawRay(transform.position, rayDirection, Color.black, 1.5f);
+                float dist = Vector3.Distance(this.transform.position, enemy.transform.position);
+                if (dist < shortestDistance) {
+                    shortestDistance = dist;
+                    tempTarget = enemy.transform;
+                }
+                Debug.DrawRay(transform.position, rayDirection, Color.green, .5f);
             }
-            foreach (EnemyController enemy in enemies) {
-                try {
-                    if (!enemy.GetComponent<EnemyController>().isDying){};
-                }
-
-                catch {
-                    continue;
-                }
-                if (enemy.GetComponent<EnemyController>().isDying) {
-                    continue;
-                }
-
-                Transform enemyTransform = enemy.GetComponent<Transform>();
-
-                
-
-                float enemyX = enemyTransform.TransformPoint(Vector2.zero).x;
-                float enemyY = enemyTransform.TransformPoint(Vector2.zero).y;
-
-                float diffX = talismanX - enemyX;
-                float diffY = talismanY - enemyY;
-
-                float distance = Mathf.Abs(diffX) + Mathf.Abs(diffY);
-                if (target == null) {
-                    target = enemyTransform;
-                    enemyDistance = distance;
-                    
-                }
-                else if(distance < enemyDistance) {
-                    hastarget = true;
-                    target = enemyTransform;
-                    enemyDistance = distance;
-                }
+            else {
+                Debug.DrawRay(transform.position, rayDirection, Color.red, 1.5f);
             }
         }
-        if (target.GetComponent<EnemyController>().isDying == true){
-            hastarget = false;
+        if (target == null || target.GetComponent<EnemyController>().GetDamage() <= 0) {
+            target = tempTarget;
         }
-    }
 
-    public Transform GetTarget() {
-        return target;
     }
 }

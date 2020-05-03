@@ -14,7 +14,7 @@ public class SpawnerController : MonoBehaviour {
     Vector2 atticRight = new Vector2(75, 51.5f);
     [SerializeField] Transform atticCenter;
 
-    [SerializeField] int totalEnemies = 20;
+    [SerializeField] int totalEnemies;
     [SerializeField] int spawnedEnemies;
 
     [SerializeField] GameObject kurobouzu;
@@ -31,7 +31,6 @@ public class SpawnerController : MonoBehaviour {
     private void FixedUpdate() {
         if(spawnedEnemies >= totalEnemies) {
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            Debug.Log(enemies.Length);
             if (enemies.Length <= 0) {
                 victory.gameObject.SetActive(true);
                 Time.timeScale = 0;
@@ -40,10 +39,9 @@ public class SpawnerController : MonoBehaviour {
     }
 
     IEnumerator SpawnEnemies() {
-        int i;
         Transform nextobjective;
         for(spawnedEnemies = 0; spawnedEnemies < totalEnemies; spawnedEnemies++) {
-            int seconds = Random.Range(0, 10);
+            int seconds = Random.Range(0, 4);
             int spawn = Random.Range(0, 4);
             yield return new WaitForSeconds(seconds);
             GameObject Enemy = Instantiate(kurobouzu, rooms[spawn], Quaternion.identity);
