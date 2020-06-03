@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 345821571}
   - component: {fileID: 647011280480723844}
   m_Layer: 0
-  m_Name: Talisman_Attack
+  m_Name: AttackTalisman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,10 +47,11 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -114,3 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1909749686468053302, guid: 35d1718c235b5a84881603be03dc8891, type: 3}
+  target: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0

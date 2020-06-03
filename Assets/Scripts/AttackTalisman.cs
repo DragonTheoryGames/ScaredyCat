@@ -21,6 +21,7 @@ public class AttackTalisman : MonoBehaviour {
     }
 
     private void FindTarget() {
+        bool currentTargetInRange = false;
         float shortestDistance = Mathf.Infinity;
         Transform tempTarget = null;
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -37,14 +38,22 @@ public class AttackTalisman : MonoBehaviour {
                     tempTarget = enemy.transform;
                 }
                 Debug.DrawRay(transform.position, rayDirection, Color.green, .5f);
+                if (target != null) {
+                    if (hit.collider.gameObject.name == target.gameObject.name) {
+                        currentTargetInRange = true;                    
+                    }
+                }
+
             }
             else {
                 Debug.DrawRay(transform.position, rayDirection, Color.red, 1.5f);
             }
         }
+        if (currentTargetInRange == false) {
+            target = null;
+        }
         if (target == null || target.GetComponent<EnemyController>().GetDamage() <= 0) {
             target = tempTarget;
         }
-
     }
 }

@@ -15,16 +15,30 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Variables")]
     [SerializeField] private bool isGrounded;
+    private float coyoteTime;
+    private bool coyoteTimeBool = false;
     [SerializeField] private float moveSpeed = 900f;
     [SerializeField] private float jumpSpeed = 10f;
     float xMove;
-      
+    [SerializeField] float fallGravity;
+    [SerializeField] float lowJumpGravity;
+
     void Update() {
         PlayerRun();
         PlayerJump();
         CheckPlayerVelocity();
         CheckGround();
         CallMenu();
+        ControlGravity();
+    }
+
+    private void ControlGravity() {
+        if (myRB.velocity.y < 0) {
+            myRB.velocity += Vector2.up * Physics2D.gravity.y * (fallGravity - 1) * Time.deltaTime;
+        }
+        else if (myRB.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && !isGrounded) {
+            myRB.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpGravity - 1) * Time.deltaTime;
+        }
     }
 
     private void CheckPlayerVelocity() {
@@ -44,9 +58,11 @@ public class PlayerController : MonoBehaviour {
     private void CheckGround() {
         if (!myCollider.IsTouchingLayers(LayerMask.GetMask("Platform")) && !myCollider.IsTouchingLayers(LayerMask.GetMask("Floor"))) {
             isGrounded = false;
+            
         }
         else {
             isGrounded = true;
+            coyoteTime = Time.fixedTime;
         }
     }
 
@@ -66,11 +82,13 @@ public class PlayerController : MonoBehaviour {
 
     private void PlayerJump() {
         if (Input.GetKeyDown(KeyCode.Space)){
-            if (!isGrounded) {
+            if (!isGrounded && Time.fixedTime > coyoteTime + .1f) {
+                coyoteTime = 0;
                 if (xMove != 0) { xMove = Mathf.Sign(xMove) * 3; }
                 talisman.CreatePlatform(xMove);
             }
             else {
+                
                 myRB.velocity = new Vector2(myRB.velocity.x, jumpSpeed);
             }
         }
