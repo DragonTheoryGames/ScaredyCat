@@ -1,14 +1,27 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class MenuController : MonoBehaviour {
 
     [SerializeField] Button button;
+    [SerializeField] Canvas pauseMenu;
 
+    private void Update() {
+        MainMenuInput();
+        CallPauseMenu();
+    }
 
-    private void FixedUpdate() {
-        MenuInput();
+    private void CallPauseMenu() {
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            if (pauseMenu.gameObject.activeSelf) {
+                pauseMenu.gameObject.SetActive(false);
+            }
+            else if (!pauseMenu.gameObject.activeSelf) {
+                pauseMenu.gameObject.SetActive(true);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
@@ -23,7 +36,7 @@ public class MenuController : MonoBehaviour {
         }
     }
 
-    private void MenuInput() {
+    private void MainMenuInput() {
         if (Input.GetKey(KeyCode.F)) {
             switch (button.name) {
                 case "NewGameButton":
@@ -31,6 +44,14 @@ public class MenuController : MonoBehaviour {
                     break;
             }
         }
+    }
+
+    public void ContinueButton() {
+        pauseMenu.gameObject.SetActive(false);
+    }
+
+    public void GoToMainMenuButton() {
+        SceneManager.LoadScene(0);
     }
 
 }

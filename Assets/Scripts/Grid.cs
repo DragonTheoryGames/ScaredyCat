@@ -1,10 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+
 
 public class Grid : MonoBehaviour {
     
-    [SerializeField] GridManager parentGrid;
+    [SerializeField] Grid[] Neighbors;
+    [SerializeField] List<EnemyController> myEnemies;
     [SerializeField] bool hasTalisman = false;
     GameObject talisman;
+
+    public Grid[] GetNeighbor(){
+        return Neighbors;
+    }
 
     public void SetTalisman(GameObject tal) {
         if (!hasTalisman){
@@ -17,14 +24,21 @@ public class Grid : MonoBehaviour {
         }
     }
 
-    //private void OnTriggerEnter2D(Collider2D col) {
-    //    if (col.gameObject.GetComponent<EnemyController>() != null) { //check for enemy
-    //        GridManager previousGrid = col.gameObject.GetComponent<EnemyController>().GetGrid();
-    //        if(previousGrid != null) {
-    //            previousGrid.RemoveEnemy(col.gameObject.GetComponent<EnemyController>()); //remove enemy from prior grid
-    //        }
-    //        col.gameObject.GetComponent<EnemyController>().SetGrid(parentGrid); //set enemies new grid
-    //        parentGrid.AddEnemy(col.gameObject.GetComponent<EnemyController>()); //add to enemies list.
-    //    }
-    //}
+    private void OnTriggerEnter2D(Collider2D col) {
+        if (col.gameObject.GetComponent<EnemyController>()) { //check for enemy
+            myEnemies.Add(col.gameObject.GetComponent<EnemyController>());
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.GetComponent<EnemyController>())
+        { //check for enemy
+            myEnemies.Remove(col.gameObject.GetComponent<EnemyController>());
+        }
+    }
+
+    public List<EnemyController> GetEnemies(){
+        return myEnemies;
+    }
 }

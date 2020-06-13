@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9074351689087321825}
   - component: {fileID: 9074351689087321830}
   - component: {fileID: 9074351689087321829}
+  - component: {fileID: 975222991}
   m_Layer: 10
   m_Name: Cat
   m_TagString: Untagged
@@ -107,6 +108,8 @@ MonoBehaviour:
   isGrounded: 0
   moveSpeed: 900
   jumpSpeed: 40
+  fallGravity: 0
+  lowJumpGravity: 0
 --- !u!50 &9074351689087321824
 Rigidbody2D:
   serializedVersion: 4
@@ -195,3 +198,17 @@ MonoBehaviour:
   energyGain: 1
   energyTime: 2
   energyBar: {fileID: 0}
+--- !u!114 &975222991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9074351689087321836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f88a7e59d922f44af613f2a2f64034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  pauseMenu: {fileID: 0}

@@ -4,23 +4,22 @@ using UnityEngine;
 public class Talisman : MonoBehaviour {
     
     [Header("Talismans")]
-    [SerializeField] GameObject AttackTalisman;
     [SerializeField] GameObject PlatformTalisman;
-    [SerializeField] GameObject EnergyTalisman;
+    [SerializeField] GameObject[] Talismans;
     Grid currentGrid;
+    int nameCounter = 0;
     
     [Header("Energy")]
     [SerializeField] int energy;
-    int attackTalismanCost = 10;
-    int energyTalismanCost = 15;
+    [SerializeField] int[] TalismanCost;
     int platformTalismanCost = 5;
     [SerializeField] int energyGain = 1;
     float lastTime;
     [SerializeField] float energyTime;
     [SerializeField] SliderController energyBar;
 
-    void Start() {
-       lastTime = Time.time; 
+    void Awake() {
+        lastTime = Time.time;
     }
 
     void FixedUpdate() {
@@ -31,30 +30,30 @@ public class Talisman : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col) {
         if (col.gameObject.tag == "Grid") {
-            currentGrid = col.gameObject.GetComponent<Grid>();   
+            currentGrid = col.gameObject.GetComponent<Grid>();
         }
     }
 
-    //TODO: face the enemy its attacking
-    public void SetAttackTalisman() { //called by message from PlayerController
-        if (energy >= attackTalismanCost) {
-            GameObject currentTalisman = Instantiate(AttackTalisman, transform.position, transform.rotation);
+    public void SetTalisman(int newTalisman) {
+        GameObject talisman = Talismans[newTalisman];
+        int talismanCost = TalismanCost[newTalisman];
+
+        if (energy >= talismanCost) {
+            energy -= talismanCost;
+            GameObject currentTalisman = Instantiate(talisman, transform.position, transform.rotation);
             currentGrid.SetTalisman(currentTalisman);
-            energy -= attackTalismanCost;
+            currentTalisman.name = "Talisman " + nameCounter.ToString();
+            nameCounter++;
+            if(newTalisman == 2){
+                currentTalisman.GetComponent<AutumnTalisman>().SetGrid(currentGrid);
+            }
         }
+            
     }
 
-    public void SetEnergyTalisman() { //called by message from PlayerController
-        if (energy >= energyTalismanCost) {
-            GameObject currentTalisman = Instantiate(EnergyTalisman, transform.position, transform.rotation);
-            currentGrid.SetTalisman(currentTalisman);
-            energy -= energyTalismanCost;
-        }
-    }
-
-    public void CreatePlatform(float altX) {
+    public void CreatePlatform(float dirX) {
         if (energy >= platformTalismanCost){
-            Vector3 transPos = new Vector3(transform.position.x + altX, (transform.position.y - 2f), transform.position.z);
+            Vector3 transPos = new Vector3(transform.position.x + dirX, (transform.position.y - 2f), transform.position.z);
             GameObject currentTalisman = Instantiate(PlatformTalisman, transPos, transform.rotation);
             currentTalisman.GetComponent<PlatformController>().player = this.GetComponent<Rigidbody2D>(); 
             energy -= platformTalismanCost;

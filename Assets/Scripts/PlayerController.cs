@@ -33,12 +33,15 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void ControlGravity() {
-        if (myRB.velocity.y < 0) {
-            myRB.velocity += Vector2.up * Physics2D.gravity.y * (fallGravity - 1) * Time.deltaTime;
+        if (!isGrounded) {
+            if (myRB.velocity.y < 0) {
+                myRB.velocity += Vector2.up * Physics2D.gravity.y * (fallGravity - 1) * Time.deltaTime;
+            }
+            else if (myRB.velocity.y > 0 && !Input.GetKey(KeyCode.Space)) {
+                myRB.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpGravity - 1) * Time.deltaTime;
+            }
         }
-        else if (myRB.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && !isGrounded) {
-            myRB.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpGravity - 1) * Time.deltaTime;
-        }
+        
     }
 
     private void CheckPlayerVelocity() {

@@ -1,23 +1,24 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SpawnerController : MonoBehaviour {
 
-    [SerializeField] _SriptableLevel Level;
+    [SerializeField] _SriptableLevel Stage;
+    [SerializeField] StageManager StageManager;
     int enemyCount;
     int enemySpawnTime;
     [SerializeField]
     bool isMenu = false;
 
     [Header("Spawners")]
-    Vector2 livingRoomSpawn = new Vector2(-75, -8);
-    Vector2 kitchenSpawn = new Vector2(75, -8);
+    Vector2 livingRoomSpawn = new Vector2(-75, -6.5f);
+    Vector2 kitchenSpawn = new Vector2(75, -6.5f);
     [SerializeField] Transform livingRoomCenter;
 
-    Vector2 atticLeft = new Vector2(-75, 51.5f);
-    Vector2 atticRight = new Vector2(75, 51.5f);
+    Vector2 atticLeft = new Vector2(-75, 56f);
+    Vector2 atticRight = new Vector2(75, 56f);
     [SerializeField] Transform atticCenter;
 
     [SerializeField] int spawnedEnemies;
@@ -30,14 +31,16 @@ public class SpawnerController : MonoBehaviour {
     int nameCounter = 0;
 
     void Start() {
-        rooms = new Vector2[] {livingRoomSpawn, kitchenSpawn, atticLeft, atticRight};
+        Stage = StageManager.GetStage();
         SetLevelVariables();
+        Time.timeScale = 1f;
+        rooms = new Vector2[] {livingRoomSpawn, kitchenSpawn, atticLeft, atticRight};
         StartCoroutine(SpawnEnemies());
     }
 
     void SetLevelVariables() {
-        enemyCount = Level.enemyCount;
-        enemySpawnTime = Level.enemySpawnTime;
+        enemyCount = Stage.enemyCount;
+        enemySpawnTime = Stage.enemySpawnTime;
     }
 
     private void FixedUpdate() {
@@ -46,9 +49,15 @@ public class SpawnerController : MonoBehaviour {
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             if (enemies.Length <= 0) {
                 victory.gameObject.SetActive(true);
-                Time.timeScale = 0;
+                Time.timeScale = .25f;
+                LoadNextStage();
             }
         }
+    }
+
+    private void LoadNextStage() {
+        //yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(1);
     }
 
     IEnumerator SpawnEnemies() {

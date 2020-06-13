@@ -2,7 +2,6 @@
 
 public class EnemyController : MonoBehaviour {
 
-    [SerializeField] GridManager grid;
     [SerializeField] public SliderController healthBar;
 
     [SerializeField] private int health = 20;
@@ -24,14 +23,13 @@ public class EnemyController : MonoBehaviour {
             animator.SetBool("isDying", true);
             pathing.speed = 0;
             isDying = true;
-            //TODO: make list of attackers to notify upon death.
         }
+        SetIsHurt(1);
         UpdateHealth();
     }
 
     public int GetDamage() {
         return damage;
-
     }
 
     void UpdateHealth(){
@@ -42,7 +40,6 @@ public class EnemyController : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D col){
         if (col.gameObject.tag == "Bullet") {
             takeDamage(1);
-            SetIsHurt(1);
             Destroy(col.gameObject);
         }
         else if (col.gameObject.tag == "Family") {
@@ -58,13 +55,5 @@ public class EnemyController : MonoBehaviour {
 
     public void KillMePlease() {
         Destroy(this.gameObject);
-    }
-
-    public GridManager GetGrid(){
-        return grid;
-    }
-
-    public void SetGrid(GridManager newGrid){
-        grid = newGrid;
     }
 }

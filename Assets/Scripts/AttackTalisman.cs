@@ -43,7 +43,6 @@ public class AttackTalisman : MonoBehaviour {
                         currentTargetInRange = true;                    
                     }
                 }
-
             }
             else {
                 Debug.DrawRay(transform.position, rayDirection, Color.red, 1.5f);
