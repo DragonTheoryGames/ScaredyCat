@@ -51,7 +51,7 @@ public class AttackTalisman : MonoBehaviour {
         if (currentTargetInRange == false) {
             target = null;
         }
-        if (target == null || target.GetComponent<EnemyController>().GetDamage() <= 0) {
+        if (target == null || target.GetComponent<EnemyController>().GetHealth() <= 0) {
             target = tempTarget;
         }
     }

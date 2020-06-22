@@ -8,7 +8,7 @@ public class HumanController : MonoBehaviour
 
     [SerializeField] Text gameOver;
 
-    public void UpdateSanity(int damage) {
+    public void UpdateSanity(float damage) {
         sanity = sanity - damage;
         if (sanity > 100) { sanity = 100; }
         UpdateValue();

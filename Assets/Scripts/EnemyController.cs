@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour {
     public bool isDying = false;
     bool b;
 
-    [SerializeField] int damage = 15;
+    [SerializeField] float attack = 15f;
 
     void Start() {
         pathing = gameObject.GetComponent<EnemyPathing>();
@@ -28,8 +28,8 @@ public class EnemyController : MonoBehaviour {
         UpdateHealth();
     }
 
-    public int GetDamage() {
-        return damage;
+    public int GetHealth() {
+        return health;
     }
 
     void UpdateHealth(){
@@ -43,7 +43,7 @@ public class EnemyController : MonoBehaviour {
             Destroy(col.gameObject);
         }
         else if (col.gameObject.tag == "Family") {
-            col.gameObject.GetComponent<HumanController>().UpdateSanity(damage);
+            col.gameObject.GetComponent<HumanController>().UpdateSanity(attack);
             KillMePlease();
         }
     }

@@ -9,8 +9,10 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] Transform myTransform;
     [SerializeField] Collider2D myCollider;
     [SerializeField] Animator animator;
+    [SerializeField] Animator lightAnimator;
     [SerializeField] Talisman talisman;
     [SerializeField] GameObject talismanMenu;
+    [SerializeField] BedData currentBed;
 
 
     [Header("Variables")]
@@ -22,6 +24,8 @@ public class PlayerController : MonoBehaviour {
     float xMove;
     [SerializeField] float fallGravity;
     [SerializeField] float lowJumpGravity;
+    [SerializeField] bool isOnBed = false;
+    [SerializeField] bool ispurring = false;
 
     void Update() {
         PlayerRun();
@@ -30,6 +34,7 @@ public class PlayerController : MonoBehaviour {
         CheckGround();
         CallMenu();
         ControlGravity();
+        Purr();
     }
 
     private void ControlGravity() {
@@ -47,14 +52,19 @@ public class PlayerController : MonoBehaviour {
     private void CheckPlayerVelocity() {
         if (myRB.velocity.y > 0) {
             animator.SetBool("isJumping", true);
+            lightAnimator.SetBool("isJumping", true);
         }
         else if (myRB.velocity.y < -1.2) {
             animator.SetBool("isFalling", true);
+            lightAnimator.SetBool("isFalling", true);
             animator.SetBool("isJumping", false);
+            lightAnimator.SetBool("isJumping", false);
         }
         else {
             animator.SetBool("isJumping", false);
+            lightAnimator.SetBool("isJumping", false);
             animator.SetBool("isFalling", false);
+            lightAnimator.SetBool("isFalling", false);
         }
     }
 
@@ -75,10 +85,12 @@ public class PlayerController : MonoBehaviour {
             myTransform.localScale = new Vector3(Mathf.Sign(xMove), 1, 1);
             if (isGrounded) {
                 animator.SetBool("isRunning", true);
+                lightAnimator.SetBool("isRunning", true);
             }
         }
         else{
             animator.SetBool("isRunning", false);
+            lightAnimator.SetBool("isRunning", false);
         }
         myRB.velocity = new Vector2(xMove, myRB.velocity.y);
     }
@@ -97,19 +109,35 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    //TODO: make this a trigger
-    private void OnCollisionStay2D(Collision2D col) {
+    private void OnCollisionEnter2D(Collision2D col) {
         if (col.gameObject.tag == "Bed") {
-            if (Input.GetKey(KeyCode.S)) {
-                Purr(col.gameObject.GetComponent<BedData>());
-            }
+            currentBed = col.gameObject.GetComponent<BedData>();
+            isOnBed = true;
         }
     }
 
-    private void Purr(BedData bed) {
+    private void OnCollisionExit2D(Collision2D col){
+        if (col.gameObject.tag == "Bed") {
+            currentBed = null;
+            isOnBed = false;
+        }
+    }
+
+    private void Purr() {
         //set animation
-        bed.owner.UpdateSanity(-1);
-        
+        if (Input.GetKeyDown(KeyCode.S) && isOnBed){
+            ispurring = true;
+            animator.SetBool("isPurring", true);
+            lightAnimator.SetBool("isPurring", true);
+        }
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)){
+            ispurring = false;
+            animator.SetBool("isPurring", false);
+            lightAnimator.SetBool("isPurring", false);
+        }
+        if (ispurring){
+            currentBed.owner.UpdateSanity(-1 * Time.deltaTime);
+        }
     }
 
     void CallMenu() {
