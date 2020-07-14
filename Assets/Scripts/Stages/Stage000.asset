@@ -15,5 +15,5 @@ MonoBehaviour:
   levelName: MainMenu
   enemyCount: 1
   enemySpawnTime: 1000
-  Environment:
-  - {fileID: 3104788119501430139, guid: 77140e22d26667449879376b6b3c2f51, type: 3}
+  enemySpawners: 1
+  nextStage: 1

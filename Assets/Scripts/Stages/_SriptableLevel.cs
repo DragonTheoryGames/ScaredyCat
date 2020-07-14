@@ -6,7 +6,6 @@ public class _SriptableLevel : ScriptableObject {
     public string levelName;
     public int enemyCount;
     public int enemySpawnTime;
-
-    public List<GameObject> Environment;
-
+    public int enemySpawners;
+    public int nextStage;
 }
