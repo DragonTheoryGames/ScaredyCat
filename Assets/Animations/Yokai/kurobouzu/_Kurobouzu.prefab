@@ -117,9 +117,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 7241700513217161203}
-  health: 20
+  health: 30
   animator: {fileID: 1147508610}
   Parent: {fileID: 4747686008622314836}
+  pathing: {fileID: 0}
   isDying: 0
   attack: 15
 --- !u!1 &2039641250

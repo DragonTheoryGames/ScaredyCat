@@ -47,7 +47,7 @@ public class MenuController : MonoBehaviour {
         SceneManager.LoadScene(1);
     }
 
-    public void QuitGameButton(){
+    public void QuitGameButton(){ // not implemented
         Application.Quit();
     }
 

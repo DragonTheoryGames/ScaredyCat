@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SpawnerController : MonoBehaviour {
 
+    [SerializeField] GameManager GameManager;
+
     [Header("Stage")]
     [SerializeField] _SriptableLevel Stage;
     [SerializeField] StageManager StageManager;
@@ -15,14 +17,15 @@ public class SpawnerController : MonoBehaviour {
     [SerializeField] bool isMenu = false;
 
     [Header("Spawners")]
-    Vector2 livingRoomSpawn = new Vector2(-75, -4f);
-    Vector2 kitchenSpawn = new Vector2(75, -4);
+    Vector2 livingRoomSpawn = new Vector2(-75, -6f);
+    Vector2 kitchenSpawn = new Vector2(75, -6);
     [SerializeField] Transform livingRoomCenter;
 
-    Vector2 atticLeft = new Vector2(-75, 58f);
-    Vector2 atticRight = new Vector2(75, 58f);
+    Vector2 atticLeft = new Vector2(-75, 56f);
+    Vector2 atticRight = new Vector2(75, 56f);
     [SerializeField] Transform atticCenter;
 
+    int SpawnRooms;
     [SerializeField] int spawnedEnemies;
     [SerializeField] GameObject kurobouzu;
 
@@ -42,34 +45,27 @@ public class SpawnerController : MonoBehaviour {
         enemySpawnTime = Stage.enemySpawnTime;
         enemySpawners = Stage.enemySpawners;
         nextStage = Stage.nextStage;
+        SpawnRooms = (nextStage <= 6) ? 2 : 4; 
         Time.timeScale = 1f;
         rooms = new Vector2[] { livingRoomSpawn, kitchenSpawn, atticLeft, atticRight };
         StartCoroutine(SpawnEnemies());
     }
 
     private void FixedUpdate() {
-        if (isMenu) { return; }
-        if(spawnedEnemies >= enemyCount) {
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            if (enemies.Length <= 0) {
-                victory.gameObject.SetActive(true);
-                Time.timeScale = .25f;
-                LoadNextStage();
-            }
-        }
+        CountEnemies();
     }
 
-    private void LoadNextStage() {
-        //yield return new WaitForSeconds(2);
-        StageManager.IncrementStage();
-        SceneManager.LoadScene(1);
+    private void CountEnemies() {
+        if (spawnedEnemies >= enemyCount) {
+            GameManager.SpawningComplete();
+        }
     }
 
     IEnumerator SpawnEnemies() {
         Transform nextobjective;
         for(spawnedEnemies = 0; spawnedEnemies < enemyCount; spawnedEnemies++) {
             int seconds = Random.Range(0, enemySpawnTime);
-            int spawn = Random.Range(0, 4);
+            int spawn = Random.Range(0, SpawnRooms);
             yield return new WaitForSeconds(seconds);
             GameObject Enemy = Instantiate(kurobouzu, rooms[spawn], Quaternion.identity);
             nextobjective = (spawn == 0 || spawn == 1) ? livingRoomCenter : atticCenter;

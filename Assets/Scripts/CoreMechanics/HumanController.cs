@@ -11,10 +11,10 @@ public class HumanController : MonoBehaviour
     public void UpdateSanity(float damage) {
         sanity = sanity - damage;
         sanity = (sanity > 100) ? 100 : sanity;
-        UpdateValue();
+        UpdateSanityValue();
     }
 
-    void UpdateValue() {
+    void UpdateSanityValue() {
         slider.GetComponent<SliderController>().UpdateValue(sanity);
         if (sanity <= 0) {
             GameManager.GameOver();

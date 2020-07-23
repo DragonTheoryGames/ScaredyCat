@@ -4,17 +4,17 @@ public class EnemyController : MonoBehaviour {
 
     [SerializeField] public SliderController healthBar;
 
-    [SerializeField] private int health = 20;
+    [SerializeField] private int health = 30;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject Parent;
-    private EnemyPathing pathing;
+    public EnemyPathing pathing;
     public bool isDying = false;
     bool b;
 
     [SerializeField] float attack = 15f;
 
     void Start() {
-        pathing = gameObject.GetComponent<EnemyPathing>();
+        pathing = gameObject.GetComponentInParent<EnemyPathing>();
     }
 
     public void takeDamage(int damage) {
