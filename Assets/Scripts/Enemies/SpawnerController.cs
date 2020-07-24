@@ -24,19 +24,21 @@ public class SpawnerController : MonoBehaviour {
     Vector2 atticLeft = new Vector2(-75, 56f);
     Vector2 atticRight = new Vector2(75, 56f);
     [SerializeField] Transform atticCenter;
-
     int SpawnRooms;
+    Vector2[] rooms = new Vector2[4];
+
+    [Header("Enemies")]
     [SerializeField] int spawnedEnemies;
     [SerializeField] GameObject kurobouzu;
-
-    [SerializeField] Text victory;
-
-    Vector2[] rooms = new Vector2[4];
 
     int nameCounter = 0;
 
     void Start() {
         SetLevelVariables();
+    }
+
+    private void FixedUpdate() {
+        CountEnemies();
     }
 
     public void SetLevelVariables() {
@@ -51,9 +53,6 @@ public class SpawnerController : MonoBehaviour {
         StartCoroutine(SpawnEnemies());
     }
 
-    private void FixedUpdate() {
-        CountEnemies();
-    }
 
     private void CountEnemies() {
         if (spawnedEnemies >= enemyCount) {

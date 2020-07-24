@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour {
             pathing.SetSpeed(0);
             isDying = true;
         }
-        SetIsHurt(1);
+        SetIsHurt();
         UpdateHealth();
     }
 
@@ -37,16 +37,15 @@ public class EnemyController : MonoBehaviour {
         return health;
     }
 
-    void UpdateHealth(){
-        healthBar.UpdateValue(health);
-    }
-
-    public void SetIsHurt(int i) {
-        b = (i == 1) ? true : false;
+    public void SetIsHurt() {
         animator.SetBool("isHurt", b);
     }
 
     public void KillMePlease() {
         Destroy(Parent.gameObject);
+    }
+
+    void UpdateHealth() {
+        healthBar.UpdateValue(health);
     }
 }

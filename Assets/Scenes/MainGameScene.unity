@@ -3903,7 +3903,6 @@ MonoBehaviour:
   spawnedEnemies: 1
   kurobouzu: {fileID: 4747686008622314836, guid: 07906d3717ce0294f85f9cf0c55e0889,
     type: 3}
-  victory: {fileID: 925838253}
 --- !u!1 &1085075771
 GameObject:
   m_ObjectHideFlags: 0

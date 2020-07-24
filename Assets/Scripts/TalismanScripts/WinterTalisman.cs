@@ -21,12 +21,19 @@ public class WinterTalisman : MonoBehaviour {
 
     private void SlowEnemies() {
         foreach (EnemyPathing enemy in Enemies) {
-            enemy.GetComponent<EnemyPathing>().SetSpeed(speednormalized);
+            try{
+                enemy.GetComponent<EnemyPathing>().SetSpeed(speednormalized);
+            }
+            catch{}
+            
         }
         Enemies.Clear();
         Enemies.AddRange(Grid.GetEnemies());
         foreach (EnemyPathing enemy in Enemies) {
-            enemy.GetComponent<EnemyPathing>().SetSpeed(speedreduction);
+            try{
+                enemy.GetComponent<EnemyPathing>().SetSpeed(speedreduction);
+            }
+            catch{}
         }
     }
 
