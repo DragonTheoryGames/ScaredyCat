@@ -9,8 +9,6 @@ public class WinterTalisman : MonoBehaviour {
     [SerializeField] float speednormalized = .04f;
     [SerializeField] float speedreduction = .03f;
 
-    //Consider changing to collisions
-
     void FixedUpdate() {
         SlowEnemies();
     }
@@ -25,7 +23,6 @@ public class WinterTalisman : MonoBehaviour {
                 enemy.GetComponent<EnemyPathing>().SetSpeed(speednormalized);
             }
             catch{}
-            
         }
         Enemies.Clear();
         Enemies.AddRange(Grid.GetEnemies());

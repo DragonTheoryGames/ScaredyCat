@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour {
 
@@ -14,10 +14,12 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] GameObject talismanMenu;
     [SerializeField] HumanController currentBed;
     [SerializeField] Transform playerHUD;
+    LayerMask layerMask;
 
 
     [Header("Variables")]
-    [SerializeField] private bool isGrounded;
+    [SerializeField] private bool isGrounded = true;
+    [SerializeField] bool queuedJump = false;
     private float coyoteTime;
     private bool coyoteTimeBool = false;
     [SerializeField] private float moveSpeed = 900f;
@@ -26,9 +28,22 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] float fallGravity;
     [SerializeField] float lowJumpGravity;
     [SerializeField] bool isOnBed = false;
-    [SerializeField] bool ispurring = false;
+    [SerializeField] bool isCatPurring = false;
 
+    [Header("String Commands")]
+    string isJumping = "isJumping";
+    string isFalling = "isFalling";
+    string platform = "Platform";
+    string floor = "Floor";
+    string horizontal = "Horizontal";
+    string isRunning = "isRunning";
+    string bed = "Bed";
+    string isPurring = "isPurring";
     string currentStageKey = "CurrentStage";
+
+    void Awake() {
+        layerMask = ((1 << 8) | (1 << 15));
+    }
 
     void Update() {
         PlayerRun();
@@ -54,25 +69,25 @@ public class PlayerController : MonoBehaviour {
 
     private void CheckPlayerVelocity() {
         if (myRB.velocity.y > 0) {
-            animator.SetBool("isJumping", true);
-            lightAnimator.SetBool("isJumping", true);
+            animator.SetBool(isJumping, true);
+            lightAnimator.SetBool(isJumping, true);
         }
         else if (myRB.velocity.y < -1.2) {
-            animator.SetBool("isFalling", true);
-            lightAnimator.SetBool("isFalling", true);
-            animator.SetBool("isJumping", false);
-            lightAnimator.SetBool("isJumping", false);
+            animator.SetBool(isFalling, true);
+            lightAnimator.SetBool(isFalling, true);
+            animator.SetBool(isJumping, false);
+            lightAnimator.SetBool(isJumping, false);
         }
         else {
-            animator.SetBool("isJumping", false);
-            lightAnimator.SetBool("isJumping", false);
-            animator.SetBool("isFalling", false);
-            lightAnimator.SetBool("isFalling", false);
+            animator.SetBool(isJumping, false);
+            lightAnimator.SetBool(isJumping, false);
+            animator.SetBool(isFalling, false);
+            lightAnimator.SetBool(isFalling, false);
         }
     }
 
     private void CheckGround() {
-        if (!myCollider.IsTouchingLayers(LayerMask.GetMask("Platform")) && !myCollider.IsTouchingLayers(LayerMask.GetMask("Floor"))) {
+        if (!myCollider.IsTouchingLayers(LayerMask.GetMask(platform)) && !myCollider.IsTouchingLayers(LayerMask.GetMask(floor))) {
             isGrounded = false;
         }
         else {
@@ -82,44 +97,52 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void PlayerRun() {
-        xMove = (Input.GetAxis("Horizontal") * moveSpeed) * Time.fixedDeltaTime;
+        xMove = (Input.GetAxis(horizontal) * moveSpeed) * Time.fixedDeltaTime;
         if (Mathf.Abs(xMove) != 0) { //turns player
             myTransform.localScale = new Vector3(Mathf.Sign(xMove), 1, 1);
             if (isGrounded) {
-                animator.SetBool("isRunning", true);
-                lightAnimator.SetBool("isRunning", true);
+                animator.SetBool(isRunning, true);
+                lightAnimator.SetBool(isRunning, true);
             }
         }
         else{
-            animator.SetBool("isRunning", false);
-            lightAnimator.SetBool("isRunning", false);
+            animator.SetBool(isRunning, false);
+            lightAnimator.SetBool(isRunning, false);
         }
         myRB.velocity = new Vector2(xMove, myRB.velocity.y);
     }
 
     private void PlayerJump() {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 100, layerMask);
+        Debug.DrawRay(transform.position, new Vector3(0,-100,0), Color.black, .5f);
         if (Input.GetKeyDown(KeyCode.Space)){
-            if (!isGrounded && Time.fixedTime > coyoteTime + .1f) {
+            if (!isGrounded && Time.fixedTime > coyoteTime + .1f && hit.distance > 3) {
                 coyoteTime = 0;
                 if (xMove != 0) { xMove = Mathf.Sign(xMove) * 3; }
-                talisman.CreatePlatform(xMove);
+                talisman.CreatePlatform(xMove); 
             }
-            else {
-                
+            else if (hit.distance < 3) {
+                    queuedJump = true;
+            }
+            if (isGrounded){
                 myRB.velocity = new Vector2(myRB.velocity.x, jumpSpeed);
             }
+        }
+        if (queuedJump && isGrounded) {
+            myRB.velocity = new Vector2(myRB.velocity.x, jumpSpeed);
+            queuedJump = false;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D col) {
-        if (col.gameObject.tag == "Bed") {
+        if (col.gameObject.tag == bed) {
             currentBed = col.gameObject.GetComponent<HumanController>();
             isOnBed = true;
         }
     }
 
     private void OnCollisionExit2D(Collision2D col){
-        if (col.gameObject.tag == "Bed") {
+        if (col.gameObject.tag == bed) {
             currentBed = null;
             isOnBed = false;
         }
@@ -128,16 +151,16 @@ public class PlayerController : MonoBehaviour {
     private void Purr() {
         //set animation
         if (Input.GetKeyDown(KeyCode.S) && isOnBed){
-            ispurring = true;
-            animator.SetBool("isPurring", true);
-            lightAnimator.SetBool("isPurring", true);
+            isCatPurring = true;
+            animator.SetBool(isPurring, true);
+            lightAnimator.SetBool(isPurring, true);
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)){
-            ispurring = false;
-            animator.SetBool("isPurring", false);
-            lightAnimator.SetBool("isPurring", false);
+            isCatPurring = false;
+            animator.SetBool(isPurring, false);
+            lightAnimator.SetBool(isPurring, false);
         }
-        if (ispurring){
+        if (isCatPurring){
             currentBed.UpdateSanity(-1 * Time.deltaTime);
         }
     }

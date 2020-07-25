@@ -3,11 +3,14 @@
 public class EnergyTalisman : MonoBehaviour {
     
     [SerializeField] Talisman Talisman;
-    int energyGain = 2;
+    [SerializeField] int energyGain = 2;
+
+    [Header("String Commands")]
+    string increasedEnergy = "IncreaseEnergy";
 
     void Start() {
         Talisman = FindObjectOfType<Talisman>();
-        InvokeRepeating("IncreaseEnergy", 0f, 3f);
+        InvokeRepeating(increasedEnergy, 0f, 3f);
     }
 
     void IncreaseEnergy(){

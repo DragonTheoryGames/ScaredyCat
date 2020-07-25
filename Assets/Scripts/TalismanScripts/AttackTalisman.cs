@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class AttackTalisman : MonoBehaviour {
     
@@ -9,9 +10,13 @@ public class AttackTalisman : MonoBehaviour {
     [SerializeField] float lastTime = 0;
     [SerializeField] float attackTime = 3;
 
+    [Header("String Commands")]
+    string fireBullet = "FireBullet";
+    string enemyTag = "Enemy";
+
     void Start(){
         layerMask = ((1 << 11) | (1 << 14) | (1 << 15));
-        InvokeRepeating("FireBullet", 0f, 3f);
+        InvokeRepeating(fireBullet, 0f, 3f);
     }
 
     public void FireBullet() {
@@ -26,13 +31,13 @@ public class AttackTalisman : MonoBehaviour {
         bool currentTargetInRange = false;
         float shortestDistance = Mathf.Infinity;
         Transform tempTarget = null;
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
         Vector3 rayDirection = Vector3.zero;
         foreach (GameObject enemy in enemies) {
             rayDirection = enemy.transform.position - this.transform.position;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, Mathf.Infinity, layerMask);
             float distance = Vector3.Distance(this.transform.position, enemy.transform.position);
-            if (hit.collider.tag == "Enemy") {
+            if (hit.collider.tag == enemyTag) {
                 Debug.DrawRay(transform.position, rayDirection, Color.black, 1.5f);
                 float dist = Vector3.Distance(this.transform.position, enemy.transform.position);
                 if (dist < shortestDistance) {

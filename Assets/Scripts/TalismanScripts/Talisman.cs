@@ -18,6 +18,10 @@ public class Talisman : MonoBehaviour {
     [SerializeField] float energyTime;
     [SerializeField] SliderController energyBar;
 
+    [Header("String Commands")]
+    string grid = "Grid";
+    string talismanName = "Talisman ";
+
     void Awake() {
         lastTime = Time.time;
     }
@@ -29,7 +33,7 @@ public class Talisman : MonoBehaviour {
     
 
     void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.tag == "Grid") {
+        if (col.gameObject.tag == grid) {
             currentGrid = col.gameObject.GetComponent<Grid>();
         }
     }
@@ -42,7 +46,7 @@ public class Talisman : MonoBehaviour {
             energy -= talismanCost;
             GameObject currentTalisman = Instantiate(talisman, transform.position, transform.rotation);
             currentGrid.SetTalisman(currentTalisman);
-            currentTalisman.name = "Talisman " + nameCounter.ToString();
+            currentTalisman.name = talismanName + nameCounter.ToString();
             nameCounter++;
             if(newTalisman == 2){
                 currentTalisman.GetComponent<AutumnTalisman>().SetGrid(currentGrid);

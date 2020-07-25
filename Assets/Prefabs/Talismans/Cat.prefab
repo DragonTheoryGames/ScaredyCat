@@ -145,6 +145,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -207,7 +208,8 @@ MonoBehaviour:
   fallGravity: 2.5
   lowJumpGravity: 15
   isOnBed: 0
-  ispurring: 0
+  isCatPurring: 0
+  coyoteDistance: -4
 --- !u!50 &9074351689087321824
 Rigidbody2D:
   serializedVersion: 4
@@ -242,7 +244,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.083826065, y: 0.0010809898}
+  m_Offset: {x: 0.09666443, y: -0.78623486}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -253,7 +255,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9638481, y: 2.0141554}
+  m_Size: {x: 1.2193222, y: 0.37106133}
   m_EdgeRadius: 0
 --- !u!95 &9074351689087321830
 Animator:

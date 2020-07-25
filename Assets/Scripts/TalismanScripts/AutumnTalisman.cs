@@ -6,8 +6,11 @@ public class AutumnTalisman : MonoBehaviour {
     [SerializeField] Grid[] Grids;
     [SerializeField] List<EnemyPathing> Enemies;
 
+    [Header("String Commands")]
+    string attack = "Attack";
+
     void Start() {
-        InvokeRepeating("Attack", 0f, 3f);
+        InvokeRepeating(attack, 0f, 3f);
     }
 
     void FixedUpdate() {
