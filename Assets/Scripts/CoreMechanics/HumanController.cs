@@ -17,7 +17,7 @@ public class HumanController : MonoBehaviour
     void UpdateSanityValue() {
         slider.GetComponent<SliderController>().UpdateValue(sanity);
         if (sanity <= 0) {
-            GameManager.GameOver();
+            GameManager.GameOver("Defeat");
         }
     }
 }
