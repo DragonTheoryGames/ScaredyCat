@@ -32,6 +32,10 @@ public class MenuController : MonoBehaviour {
         }
     }
 
+    public void StartHighestStage() {
+        SceneManager.LoadScene(1);
+    }
+
     public void NewGameButton(){
         PlayerPrefs.SetInt(currentStageKey, 1);
         SceneManager.LoadScene(1);

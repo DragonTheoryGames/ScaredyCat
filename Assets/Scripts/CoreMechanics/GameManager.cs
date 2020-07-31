@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour{
 
     [SerializeField] StageManager StageManager;
     [SerializeField] TextMeshProUGUI gameOver;
+    [SerializeField] Canvas StatisticsScreen;
     List<GameObject> enemies;
+
 
     bool enemiesAreSpawned = false;
     string victory = "Victory";
@@ -28,18 +30,11 @@ public class GameManager : MonoBehaviour{
 
     public void GameOver(string gameOverText) {
         gameOver.text = gameOverText;
-        if (gameOverText == victory){
-            
-        }
+        StatisticsScreen.gameObject.SetActive(true);
         Time.timeScale = .25f;
     }
 
     public void SpawningComplete(){
         enemiesAreSpawned = true;
-    }
-
-    void LoadNextStage() {
-        StageManager.IncrementStage();
-        //SceneManager.LoadNextStage();
     }
 }
