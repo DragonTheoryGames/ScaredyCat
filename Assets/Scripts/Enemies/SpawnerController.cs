@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -28,17 +29,15 @@ public class SpawnerController : MonoBehaviour {
     Vector2[] rooms = new Vector2[4];
 
     [Header("Enemies")]
+    int totalCurrentEnemies = 0;
     [SerializeField] int spawnedEnemies;
     [SerializeField] GameObject kurobouzu;
+    [SerializeField] GameObject blueLantern;
 
     int nameCounter = 0;
 
     void Start() {
         SetLevelVariables();
-    }
-
-    private void FixedUpdate() {
-        CountEnemies();
     }
 
     public void SetLevelVariables() {
@@ -53,24 +52,19 @@ public class SpawnerController : MonoBehaviour {
         StartCoroutine(SpawnEnemies());
     }
 
-
-    private void CountEnemies() {
-        if (spawnedEnemies >= enemyCount) {
-            GameManager.SpawningComplete();
-        }
-    }
-
     IEnumerator SpawnEnemies() {
         Transform nextobjective;
         for(spawnedEnemies = 0; spawnedEnemies < enemyCount; spawnedEnemies++) {
             int seconds = Random.Range(0, enemySpawnTime);
             int spawn = Random.Range(0, SpawnRooms);
             yield return new WaitForSeconds(seconds);
-            GameObject Enemy = Instantiate(kurobouzu, rooms[spawn], Quaternion.identity);
+            GameObject Enemy = Instantiate(blueLantern, rooms[spawn], Quaternion.identity);
             nextobjective = (spawn == 0 || spawn == 1) ? livingRoomCenter : atticCenter;
             Enemy.GetComponent<EnemyPathing>().Setnextobjective(nextobjective);
             Enemy.name = "Enemy " + nameCounter.ToString();
             nameCounter++;
+            GameManager.SetEnemyTotal(1);
         }
     }
+
 }

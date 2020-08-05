@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c004cd5f958e7614c86f09d6ad8c1555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   healthBar: {fileID: 7241700513217161203}
   health: 30
   animator: {fileID: 1147508610}

@@ -2,6 +2,7 @@
 
 public class EnemyController : MonoBehaviour {
 
+    [SerializeField] GameManager gameManager;
     [SerializeField] public SliderController healthBar;
 
     [SerializeField] private int health = 30;
@@ -42,6 +43,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     public void KillMePlease() {
+        gameManager.SetEnemyTotal(-1);
         Destroy(Parent.gameObject);
     }
 

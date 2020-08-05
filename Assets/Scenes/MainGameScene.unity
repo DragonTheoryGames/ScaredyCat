@@ -316,7 +316,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 364c310ba1c683a4eafe106d17ad4995, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: -8785586214883933384, guid: 364c310ba1c683a4eafe106d17ad4995,
     type: 2}
   m_fontSharedMaterials: []
@@ -1995,7 +1995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &542860297
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4083,6 +4083,8 @@ MonoBehaviour:
   atticCenter: {fileID: 574245479}
   spawnedEnemies: 1
   kurobouzu: {fileID: 4747686008622314836, guid: 07906d3717ce0294f85f9cf0c55e0889,
+    type: 3}
+  blueLantern: {fileID: 826902522570109966, guid: a7bc01747b24f2d42b971ffc05aa6b64,
     type: 3}
 --- !u!1 &1085075771
 GameObject:
@@ -15846,7 +15848,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1556570298}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.299609, y: 7.260223, z: 27.80371}
+  m_LocalPosition: {x: -35.640526, y: 11.804693, z: 16.80371}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 508175104}
@@ -15912,9 +15914,9 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 38
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
