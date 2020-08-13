@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour{
         if (enemies.Length <= 0) {
             GameOver(victory);
         }
-        Debug.Log(enemies.Length);
     }
 
     public void GameOver(string gameOverText) {
@@ -36,10 +35,5 @@ public class GameManager : MonoBehaviour{
 
     public void SpawningComplete(){
         enemiesAreSpawned = true;
-    }
-
-    public void SetEnemyTotal(int enemyChange) {
-        enemyCount += enemyChange;
-        Debug.Log(enemyCount);
     }
 }

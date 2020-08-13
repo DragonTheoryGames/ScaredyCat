@@ -43,7 +43,6 @@ public class EnemyController : MonoBehaviour {
     }
 
     public void KillMePlease() {
-        gameManager.SetEnemyTotal(-1);
         Destroy(Parent.gameObject);
     }
 

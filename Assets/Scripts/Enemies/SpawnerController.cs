@@ -58,13 +58,13 @@ public class SpawnerController : MonoBehaviour {
             int seconds = Random.Range(0, enemySpawnTime);
             int spawn = Random.Range(0, SpawnRooms);
             yield return new WaitForSeconds(seconds);
-            GameObject Enemy = Instantiate(blueLantern, rooms[spawn], Quaternion.identity);
+            GameObject Enemy = Instantiate(kurobouzu, rooms[spawn], Quaternion.identity);
             nextobjective = (spawn == 0 || spawn == 1) ? livingRoomCenter : atticCenter;
             Enemy.GetComponent<EnemyPathing>().Setnextobjective(nextobjective);
             Enemy.name = "Enemy " + nameCounter.ToString();
             nameCounter++;
-            GameManager.SetEnemyTotal(1);
         }
+        GameManager.SpawningComplete();
     }
 
 }
