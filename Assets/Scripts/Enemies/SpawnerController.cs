@@ -33,11 +33,13 @@ public class SpawnerController : MonoBehaviour {
     [SerializeField] int spawnedEnemies;
     [SerializeField] GameObject kurobouzu;
     [SerializeField] GameObject blueLantern;
+    [SerializeField] GameObject[] allEnemies;
 
     int nameCounter = 0;
 
     void Start() {
         SetLevelVariables();
+        allEnemies = new GameObject[] {kurobouzu, blueLantern};
     }
 
     public void SetLevelVariables() {
@@ -58,7 +60,7 @@ public class SpawnerController : MonoBehaviour {
             int seconds = Random.Range(0, enemySpawnTime);
             int spawn = Random.Range(0, SpawnRooms);
             yield return new WaitForSeconds(seconds);
-            GameObject Enemy = Instantiate(kurobouzu, rooms[spawn], Quaternion.identity);
+            GameObject Enemy = Instantiate(allEnemies[0], rooms[spawn], Quaternion.identity);
             nextobjective = (spawn == 0 || spawn == 1) ? livingRoomCenter : atticCenter;
             Enemy.GetComponent<EnemyPathing>().Setnextobjective(nextobjective);
             Enemy.name = "Enemy " + nameCounter.ToString();

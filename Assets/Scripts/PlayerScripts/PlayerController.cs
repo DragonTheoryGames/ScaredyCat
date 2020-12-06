@@ -9,13 +9,11 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] Transform myTransform;
     [SerializeField] Collider2D myCollider;
     [SerializeField] Animator animator;
-    [SerializeField] Animator lightAnimator;
     [SerializeField] Talisman talisman;
     [SerializeField] GameObject talismanMenu;
     [SerializeField] HumanController currentBed;
     [SerializeField] Transform playerHUD;
     LayerMask layerMask;
-
 
     [Header("Variables")]
     [SerializeField] private bool isGrounded = true;
@@ -31,11 +29,15 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] bool isCatPurring = false;
 
     [Header("String Commands")]
+    string horizontal = "Horizontal";
+    string jump = "Jump";
+    string interact = "Fire1";
+    string action = "Fire2";
     string isJumping = "isJumping";
     string isFalling = "isFalling";
     string platform = "Platform";
     string floor = "Floor";
-    string horizontal = "Horizontal";
+    
     string isRunning = "isRunning";
     string bed = "Bed";
     string isPurring = "isPurring";
@@ -70,19 +72,14 @@ public class PlayerController : MonoBehaviour {
     private void CheckPlayerVelocity() {
         if (myRB.velocity.y > 0) {
             animator.SetBool(isJumping, true);
-            lightAnimator.SetBool(isJumping, true);
         }
         else if (myRB.velocity.y < -1.2) {
             animator.SetBool(isFalling, true);
-            lightAnimator.SetBool(isFalling, true);
             animator.SetBool(isJumping, false);
-            lightAnimator.SetBool(isJumping, false);
         }
         else {
             animator.SetBool(isJumping, false);
-            lightAnimator.SetBool(isJumping, false);
             animator.SetBool(isFalling, false);
-            lightAnimator.SetBool(isFalling, false);
         }
     }
 
@@ -102,12 +99,10 @@ public class PlayerController : MonoBehaviour {
             myTransform.localScale = new Vector3(Mathf.Sign(xMove), 1, 1);
             if (isGrounded) {
                 animator.SetBool(isRunning, true);
-                lightAnimator.SetBool(isRunning, true);
             }
         }
         else{
             animator.SetBool(isRunning, false);
-            lightAnimator.SetBool(isRunning, false);
         }
         myRB.velocity = new Vector2(xMove, myRB.velocity.y);
     }
@@ -115,7 +110,7 @@ public class PlayerController : MonoBehaviour {
     private void PlayerJump() {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 100, layerMask);
         Debug.DrawRay(transform.position, new Vector3(0,-100,0), Color.black, .5f);
-        if (Input.GetKeyDown(KeyCode.Space)){
+        if (Input.GetButtonDown(jump)){
             if (!isGrounded && Time.fixedTime > coyoteTime + .1f && hit.distance > 3) {
                 coyoteTime = 0;
                 if (xMove != 0) { xMove = Mathf.Sign(xMove) * 3; }
@@ -150,15 +145,13 @@ public class PlayerController : MonoBehaviour {
 
     private void Purr() {
         //set animation
-        if (Input.GetKeyDown(KeyCode.S) && isOnBed){
+        if (Input.GetKeyDown(KeyCode.S) && isOnBed) {
             isCatPurring = true;
             animator.SetBool(isPurring, true);
-            lightAnimator.SetBool(isPurring, true);
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)){
             isCatPurring = false;
             animator.SetBool(isPurring, false);
-            lightAnimator.SetBool(isPurring, false);
         }
         if (isCatPurring){
             currentBed.UpdateSanity(-1 * Time.deltaTime);
@@ -167,7 +160,7 @@ public class PlayerController : MonoBehaviour {
 
     void CallMenu() {
         playerHUD.position = myTransform.position;
-        if (Input.GetKey(KeyCode.F) && isGrounded) {
+        if (Input.GetButton(action) && isGrounded) {
             talismanMenu.SetActive(true);
         }
         else {
