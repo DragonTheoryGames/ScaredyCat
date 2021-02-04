@@ -3,13 +3,14 @@ using UnityEngine.UI;
 
 public class SliderController : MonoBehaviour {
     
-    Slider Slider;
+    [SerializeField] Image Slider;
+    [SerializeField] float maxValue = 100;
 
-    void Start() {
-        Slider = GetComponent<Slider>();
+    public void UpdateMaxValue(float newMaxValue){
+        maxValue = newMaxValue;
     }
 
     public void UpdateValue(float value) {
-        Slider.value = value;
+        Slider.fillAmount = value/maxValue * 0.5f;
     }
 }

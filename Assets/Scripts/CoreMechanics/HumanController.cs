@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class HumanController : MonoBehaviour
 {
-    [SerializeField] Slider slider;
+    [SerializeField] SliderController slider;
     [SerializeField] float sanity = 50;
 
     [SerializeField] GameManager GameManager;

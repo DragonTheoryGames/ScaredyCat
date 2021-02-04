@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,15 +11,18 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] Animator animator;
     [SerializeField] Talisman talisman;
     [SerializeField] GameObject talismanMenu;
+    [SerializeField] GameObject levelUpButton;
     [SerializeField] HumanController currentBed;
     [SerializeField] Transform playerHUD;
+    [SerializeField] SliderController playerXPSlider;
+    [SerializeField] MenuController Menu;
     LayerMask layerMask;
 
     [Header("Variables")]
     [SerializeField] private bool isGrounded = true;
     [SerializeField] bool queuedJump = false;
     private float coyoteTime;
-    private bool coyoteTimeBool = false;
+    //private bool coyoteTimeBool = false;
     [SerializeField] private float moveSpeed = 900f;
     [SerializeField] private float jumpSpeed = 10f;
     float xMove;
@@ -27,6 +30,11 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] float lowJumpGravity;
     [SerializeField] bool isOnBed = false;
     [SerializeField] bool isCatPurring = false;
+    //xp and lvl
+    [SerializeField] int maxXP = 3;
+    [SerializeField] int currentXP = 0;
+    [SerializeField] int xpRewards = 0;
+    [SerializeField] int playerLvl = 1;
 
     [Header("String Commands")]
     string horizontal = "Horizontal";
@@ -66,7 +74,6 @@ public class PlayerController : MonoBehaviour {
                 myRB.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpGravity - 1) * Time.deltaTime;
             }
         }
-        
     }
 
     private void CheckPlayerVelocity() {
@@ -160,11 +167,31 @@ public class PlayerController : MonoBehaviour {
 
     void CallMenu() {
         playerHUD.position = myTransform.position;
-        if (Input.GetButton(action) && isGrounded) {
-            talismanMenu.SetActive(true);
+        //call talisman menu
+        bool isTalismanMenuActive = Input.GetButton(action) && isGrounded ? true : false;
+        talismanMenu.SetActive(isTalismanMenuActive);
+        //call levelup menu
+        bool isLevelUpMenuActive = xpRewards > 0 ? true : false;
+        levelUpButton.SetActive(isLevelUpMenuActive); 
+    }
+
+    public void GainXP(int xpGain){
+        currentXP += xpGain;
+        while (currentXP > maxXP) {
+            currentXP -= maxXP;
+            maxXP += 3;
+            xpRewards += 1;
+            playerLvl += 1;
         }
-        else {
-            talismanMenu.SetActive(false);
+        playerXPSlider.UpdateMaxValue(maxXP);
+        playerXPSlider.UpdateValue(currentXP);
+
+    }
+
+    public void SetReward() {
+        xpRewards -= 1;
+        if (xpRewards < 1) {
+            Menu.ContinueGameButton();
         }
     }
 }

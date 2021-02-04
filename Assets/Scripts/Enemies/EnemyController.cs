@@ -6,8 +6,10 @@ public class EnemyController : MonoBehaviour {
     [SerializeField] public SliderController healthBar;
 
     [SerializeField] private int health = 30;
+    [SerializeField] private int xpValue = 1;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject Parent;
+    [SerializeField] private PlayerController Player;
     public EnemyPathing pathing;
     public bool isDying = false;
     bool b;
@@ -16,6 +18,7 @@ public class EnemyController : MonoBehaviour {
 
     void Start() {
         pathing = gameObject.GetComponentInParent<EnemyPathing>();
+        Player = FindObjectOfType<PlayerController>();
     }
 
     public void takeDamage(int damage) {
@@ -23,6 +26,7 @@ public class EnemyController : MonoBehaviour {
         if (health <= 0) {
             animator.SetBool("isDying", true);
             pathing.SetSpeed(0);
+            Player.GainXP(xpValue);
             isDying = true;
         }
         SetIsHurt();

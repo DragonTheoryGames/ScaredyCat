@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class StageManager : MonoBehaviour {
     [SerializeField] _SriptableLevel[] Stages;
     string currentStageKey = "CurrentStage";
-
-
+    [SerializeField] Light2D RoomLight;
+    
     [SerializeField] GameObject[] AllStageObject;
 
     [SerializeField] GameObject[] Stage000;
@@ -24,6 +25,16 @@ public class StageManager : MonoBehaviour {
 
     void Start() {
         SetBuildStage();
+        SetLighting();
+    }
+
+    private void SetLighting() {
+        if (PlayerPrefs.GetInt(currentStageKey) > 0) {
+            //Nightlight
+            RoomLight.color = new Color32(10,20,40,255);
+        }
+        // DayLight
+        else RoomLight.color = new Color32(255,255,255,255);
     }
 
     public void SetBuildStage(){
@@ -45,7 +56,7 @@ public class StageManager : MonoBehaviour {
                 Stage = Stage000;
                 break;
         }
-        BuildStage(Stage);
+        //BuildStage(Stage);
     }
 
     private void BuildStage(GameObject[] Stage) {

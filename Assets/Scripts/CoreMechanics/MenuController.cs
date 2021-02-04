@@ -7,6 +7,7 @@ public class MenuController : MonoBehaviour {
 
     [SerializeField] Canvas PauseMenu;
     [SerializeField] Canvas MainMenu;
+    [SerializeField] Canvas PowersMenu;
     [SerializeField] StageManager StageManager;
     string currentStageKey = "CurrentStage";
 
@@ -33,25 +34,31 @@ public class MenuController : MonoBehaviour {
     }
 
     public void StartHighestStage() {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void NewGameButton(){
         PlayerPrefs.SetInt(currentStageKey, 1);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void ContinueGameButton() {
         PauseMenu.gameObject.SetActive(false);
+        PowersMenu.gameObject.SetActive(false);
         Time.timeScale = 1;
     }
 
     public void ReturnToMainMenuButton() {
         PlayerPrefs.SetInt(currentStageKey, 0);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
-    public void QuitGameButton(){ // not implemented
+    public void PowersMenuButton(){
+        PowersMenu.gameObject.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void QuitGameButton() { // not implemented
         Application.Quit();
     }
 

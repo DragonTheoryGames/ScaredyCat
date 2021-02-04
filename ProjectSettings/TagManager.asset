@@ -12,6 +12,7 @@ TagManager:
   - Bed
   - Enviroment
   - Button
+  - XPBar
   layers:
   - Default
   - TransparentFX

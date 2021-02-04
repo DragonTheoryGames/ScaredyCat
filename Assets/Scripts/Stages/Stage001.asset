@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stage001
   m_EditorClassIdentifier: 
   levelName: Stage 1
-  enemyCount: 50
-  enemySpawnTime: 16
+  enemyCount: 16
+  enemySpawnTime: 32
   enemySpawners: 2
   nextStage: 2
