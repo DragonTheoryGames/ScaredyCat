@@ -72,7 +72,6 @@ MonoBehaviour:
   Parent: {fileID: 4747686008622314836}
   Player: {fileID: 0}
   pathing: {fileID: 0}
-  isDying: 0
   attack: 15
 --- !u!212 &1401944889
 SpriteRenderer:
@@ -212,18 +211,18 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4747686008622314836}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!82 &-6444462747410029545
 AudioSource:
@@ -434,7 +433,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9
   m_TargetDisplay: 0
 --- !u!114 &975684969035659107
 MonoBehaviour:
@@ -541,7 +540,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2f2558ef87902674696f4357d40dd98c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a229553ffb9b01646ad39fb13d2d56ce, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1

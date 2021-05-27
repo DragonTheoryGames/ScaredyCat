@@ -39,8 +39,7 @@ public class EnemyPathing : MonoBehaviour {
             nextobjective = col.GetComponent<ObjectiveNode>().ReturnNextObjectiveNode();
         }
         else if (col.gameObject.tag == "Bed") {
-            EnemyController.AttackHumans(col.gameObject.GetComponent<HumanController>());
-            Destroy(this.gameObject);
+            StartCoroutine(EnemyController.AttackHuman(col.gameObject.GetComponent<HumanController>()));
         }
     }
 

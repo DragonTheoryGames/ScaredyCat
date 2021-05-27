@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class AutumnTalisman : MonoBehaviour {
@@ -10,7 +11,7 @@ public class AutumnTalisman : MonoBehaviour {
     string attack = "Attack";
 
     void Start() {
-        InvokeRepeating(attack, 0f, 3f);
+        StartCoroutine(Attack());
     }
 
     void FixedUpdate() {
@@ -24,9 +25,11 @@ public class AutumnTalisman : MonoBehaviour {
         Grids = parentGrid.GetNeighbor();
     }
 
-    void Attack(){
+    IEnumerator Attack(){
         foreach(EnemyPathing enemy in Enemies){
             enemy.GetComponentInChildren<EnemyController>().takeDamage(1);
         }
+        yield return new WaitForSeconds(3f - (PowersManager.autumnSpeed/10));
+        StartCoroutine(Attack());
     }
 }

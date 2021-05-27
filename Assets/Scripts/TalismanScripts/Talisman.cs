@@ -6,7 +6,7 @@ public class Talisman : MonoBehaviour {
     [Header("Talismans")]
     [SerializeField] GameObject PlatformTalisman;
     [SerializeField] GameObject[] Talismans;
-    Grid currentGrid;
+    [SerializeField] Grid currentGrid;
     int nameCounter = 0;
     
     [Header("Energy")]
@@ -40,6 +40,7 @@ public class Talisman : MonoBehaviour {
 
     public void SetTalisman(int newTalisman) {
         GameObject talisman = Talismans[newTalisman];
+        int reducedTalismanCost = FindReducedTalismanCost(newTalisman);
         int talismanCost = TalismanCost[newTalisman];
 
         if (energy >= talismanCost) {
@@ -56,6 +57,16 @@ public class Talisman : MonoBehaviour {
             }
         }
             
+    }
+
+    private int FindReducedTalismanCost(int newTalisman) {
+        int reducedCost = 0;
+        if (newTalisman == 0) { reducedCost = PowersManager.springCost; }
+        if (newTalisman == 1) { reducedCost = PowersManager.summerCost; }
+        if (newTalisman == 2) { reducedCost = PowersManager.autumnCost; }
+        if (newTalisman == 3) { reducedCost = PowersManager.winterCost; }
+        return reducedCost;
+
     }
 
     public void CreatePlatform(float dirX) {

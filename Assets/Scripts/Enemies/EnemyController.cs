@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class EnemyController : MonoBehaviour {
 
@@ -11,7 +12,6 @@ public class EnemyController : MonoBehaviour {
     [SerializeField] private GameObject Parent;
     [SerializeField] private PlayerController Player;
     public EnemyPathing pathing;
-    public bool isDying = false;
     bool b;
 
     [SerializeField] float attack = 15f;
@@ -27,15 +27,17 @@ public class EnemyController : MonoBehaviour {
             animator.SetBool("isDying", true);
             pathing.SetSpeed(0);
             Player.GainXP(xpValue);
-            isDying = true;
         }
         SetIsHurt();
         UpdateHealth();
     }
 
-    public void AttackHumans(HumanController Human){
+    public IEnumerator AttackHuman(HumanController Human) {
+        pathing.SetSpeed(0);
+        animator.SetBool("isAttacking", true);
+        yield return new WaitForSeconds(1);
         Human.UpdateSanity(attack);
-        KillMePlease();
+        animator.SetBool("isDying", true);
     }
 
     public int GetHealth() {
@@ -43,7 +45,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     public void SetIsHurt() {
-        animator.SetBool("isHurt", b);
+        animator.SetBool("isHurt", true);
     }
 
     public void KillMePlease() {

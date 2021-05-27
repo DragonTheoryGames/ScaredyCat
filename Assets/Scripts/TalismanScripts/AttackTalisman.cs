@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using UnityEngine;
 
 public class AttackTalisman : MonoBehaviour {
@@ -16,15 +16,17 @@ public class AttackTalisman : MonoBehaviour {
 
     void Start(){
         layerMask = ((1 << 11) | (1 << 14) | (1 << 15));
-        InvokeRepeating(fireBullet, 0f, 3f);
+        StartCoroutine(FireBullet());
     }
 
-    public void FireBullet() {
+    public IEnumerator FireBullet() {
         FindTarget();
         if (target != null) {
             myBullet = Instantiate(bullet, transform.position, transform.rotation);
             myBullet.GetComponent<Bullet>().target = target;
-        } 
+        }
+        yield return new WaitForSeconds(3f - (PowersManager.summerSpeed/10));
+        StartCoroutine(FireBullet());
     }
 
     private void FindTarget() {

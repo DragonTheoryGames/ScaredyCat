@@ -18,6 +18,7 @@ public class WinterTalisman : MonoBehaviour {
     }
 
     private void SlowEnemies() {
+        if (Enemies.Count == 0){return;}
         foreach (EnemyPathing enemy in Enemies) {
             try{
                 enemy.GetComponent<EnemyPathing>().SetSpeed(speednormalized);
@@ -28,7 +29,7 @@ public class WinterTalisman : MonoBehaviour {
         Enemies.AddRange(Grid.GetEnemies());
         foreach (EnemyPathing enemy in Enemies) {
             try{
-                enemy.GetComponent<EnemyPathing>().SetSpeed(speedreduction);
+                enemy.GetComponent<EnemyPathing>().SetSpeed(speedreduction - (PowersManager.winterPower/1000));
             }
             catch{}
         }

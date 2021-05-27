@@ -1,20 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System;
 
 public class MenuController : MonoBehaviour {
 
-    [SerializeField] Canvas PauseMenu;
     [SerializeField] Canvas MainMenu;
+    [SerializeField] Canvas PauseMenu;
     [SerializeField] Canvas PowersMenu;
-    [SerializeField] StageManager StageManager;
+    [SerializeField] Canvas LoadingScreenCanvas;
+    [SerializeField] Image LoadingPanel;
+
     string currentStageKey = "CurrentStage";
 
     void Awake() {
-        if (PlayerPrefs.GetInt(currentStageKey) > 0){
+        if (PlayerPrefs.GetInt(currentStageKey) > 0) {
             MainMenu.gameObject.SetActive(false);
-        }        
+        }
     }
 
     private void Update() {
@@ -33,24 +33,10 @@ public class MenuController : MonoBehaviour {
         }
     }
 
-    public void StartHighestStage() {
-        SceneManager.LoadScene(2);
-    }
-
-    public void NewGameButton(){
-        PlayerPrefs.SetInt(currentStageKey, 1);
-        SceneManager.LoadScene(2);
-    }
-
     public void ContinueGameButton() {
         PauseMenu.gameObject.SetActive(false);
         PowersMenu.gameObject.SetActive(false);
         Time.timeScale = 1;
-    }
-
-    public void ReturnToMainMenuButton() {
-        PlayerPrefs.SetInt(currentStageKey, 0);
-        SceneManager.LoadScene(2);
     }
 
     public void PowersMenuButton(){

@@ -35,6 +35,11 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] int currentXP = 0;
     [SerializeField] int xpRewards = 0;
     [SerializeField] int playerLvl = 1;
+    //knockback
+    [SerializeField] float knockback;
+    [SerializeField] float knockbackLength;
+    [SerializeField] float knockbackCount;
+    [SerializeField] Vector2 knockbackDirection;
 
     [Header("String Commands")]
     string horizontal = "Horizontal";
@@ -45,7 +50,7 @@ public class PlayerController : MonoBehaviour {
     string isFalling = "isFalling";
     string platform = "Platform";
     string floor = "Floor";
-    
+    string enemy = "Enemy";
     string isRunning = "isRunning";
     string bed = "Bed";
     string isPurring = "isPurring";
@@ -56,13 +61,22 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        PlayerRun();
-        PlayerJump();
+        if (knockbackCount <= 0) {
+            PlayerRun();
+            PlayerJump();
+            Purr();
+        }
         CheckPlayerVelocity();
         CheckGround();
         CallMenu();
         ControlGravity();
-        Purr();
+    }
+
+    private void Knockback(Vector2 enemyPos) {
+        print("Contact");
+        //check which side they are on / subtract positions
+        //get knockback
+        //cancel knockback
     }
 
     private void ControlGravity() {
@@ -150,8 +164,13 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D col){
+        if (col.gameObject.tag == enemy) {
+            Knockback(col.gameObject.transform.position);
+        }
+    }
+
     private void Purr() {
-        //set animation
         if (Input.GetKeyDown(KeyCode.S) && isOnBed) {
             isCatPurring = true;
             animator.SetBool(isPurring, true);
@@ -175,7 +194,7 @@ public class PlayerController : MonoBehaviour {
         levelUpButton.SetActive(isLevelUpMenuActive); 
     }
 
-    public void GainXP(int xpGain){
+    public void GainXP(int xpGain) {
         currentXP += xpGain;
         while (currentXP > maxXP) {
             currentXP -= maxXP;
@@ -185,7 +204,6 @@ public class PlayerController : MonoBehaviour {
         }
         playerXPSlider.UpdateMaxValue(maxXP);
         playerXPSlider.UpdateValue(currentXP);
-
     }
 
     public void SetReward() {

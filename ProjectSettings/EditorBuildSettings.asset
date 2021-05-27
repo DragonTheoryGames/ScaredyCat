@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/DragonTheoryLogo.unity
     guid: 993b498c6d26af544944c6736be7077c
   - enabled: 1
+    path: Assets/Scenes/AudioCalibration.unity
+    guid: 1c1df5489d33a394c8bc4ddb79c3793e
+  - enabled: 1
     path: Assets/Scenes/TitleScreen.unity
     guid: e4aa8fc64e63c4441802ca743ed50190
   - enabled: 1

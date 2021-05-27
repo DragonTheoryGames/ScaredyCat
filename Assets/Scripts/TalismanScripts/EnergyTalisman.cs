@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class EnergyTalisman : MonoBehaviour {
     
@@ -10,11 +12,13 @@ public class EnergyTalisman : MonoBehaviour {
 
     void Start() {
         Talisman = FindObjectOfType<Talisman>();
-        InvokeRepeating(increasedEnergy, 0f, 3f);
+        StartCoroutine(IncreaseEnergy());
     }
 
-    void IncreaseEnergy(){
-        Talisman.SetEnergy(energyGain);
+    IEnumerator IncreaseEnergy() {
+        Talisman.SetEnergy(energyGain + PowersManager.springPower);
+        yield return new WaitForSeconds(3f - (PowersManager.springSpeed/10));
+        StartCoroutine(IncreaseEnergy());
     }
 
 }

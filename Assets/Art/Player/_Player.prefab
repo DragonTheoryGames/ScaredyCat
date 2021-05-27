@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3828338326997183096}
   - component: {fileID: 3828338326997183097}
   - component: {fileID: 3828338326997183094}
-  m_Layer: 5
+  m_Layer: 17
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &3828338326997183097
 MonoBehaviour:
@@ -172,7 +172,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3828338327682159606}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: _PlayerHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3828338327682159607}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.7183524, y: -8.43827, z: 44.62572}
+  m_LocalPosition: {x: -0.7183524, y: -8.43827, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3828338326997183095}
@@ -281,6 +281,11 @@ PrefabInstance:
       propertyPath: levelUpButton
       value: 
       objectReference: {fileID: 4140890269911149799}
+    - target: {fileID: 9074351689087321831, guid: 3b570b460e9ef3b4497955d454c5c189,
+        type: 3}
+      propertyPath: maxXP
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9074351689087321836, guid: 3b570b460e9ef3b4497955d454c5c189,
         type: 3}
       propertyPath: m_Name
@@ -320,6 +325,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3828338326997183095}
     m_Modifications:
+    - target: {fileID: 4877845370113831655, guid: 707ac7a2af15878409fb867cf4a1559d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 5100873218591775904, guid: 707ac7a2af15878409fb867cf4a1559d,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -330,16 +340,31 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 160
       objectReference: {fileID: 0}
+    - target: {fileID: 5100873218591775905, guid: 707ac7a2af15878409fb867cf4a1559d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 5100873218591775909, guid: 707ac7a2af15878409fb867cf4a1559d,
         type: 3}
       propertyPath: Slider
       value: 
       objectReference: {fileID: 3828338327049817451}
+    - target: {fileID: 5100873218630149501, guid: 707ac7a2af15878409fb867cf4a1559d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 5100873218630149503, guid: 707ac7a2af15878409fb867cf4a1559d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3828338326261732015}
+    - target: {fileID: 5100873218687476256, guid: 707ac7a2af15878409fb867cf4a1559d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 5100873218687476258, guid: 707ac7a2af15878409fb867cf4a1559d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -466,10 +491,20 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5100873218819493421, guid: 707ac7a2af15878409fb867cf4a1559d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 5100873218888892337, guid: 707ac7a2af15878409fb867cf4a1559d,
         type: 3}
       propertyPath: m_FillAmount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5100873218888892348, guid: 707ac7a2af15878409fb867cf4a1559d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 5100873218888892350, guid: 707ac7a2af15878409fb867cf4a1559d,
         type: 3}
@@ -486,16 +521,31 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 160
       objectReference: {fileID: 0}
+    - target: {fileID: 5100873218916804109, guid: 707ac7a2af15878409fb867cf4a1559d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 5100873218916804111, guid: 707ac7a2af15878409fb867cf4a1559d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3828338326261732015}
+    - target: {fileID: 5100873219518029718, guid: 707ac7a2af15878409fb867cf4a1559d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 5100873219518029800, guid: 707ac7a2af15878409fb867cf4a1559d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3828338326261732015}
+    - target: {fileID: 5376851023841918255, guid: 707ac7a2af15878409fb867cf4a1559d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 7230339683221383635, guid: 707ac7a2af15878409fb867cf4a1559d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

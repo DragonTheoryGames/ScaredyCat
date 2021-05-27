@@ -73,9 +73,4 @@ public class StageManager : MonoBehaviour {
         return Stages[PlayerPrefs.GetInt(currentStageKey)];
         
     }
-
-    public void IncrementStage(){
-        int nextStage = PlayerPrefs.GetInt(currentStageKey) + 1;
-        PlayerPrefs.SetInt(currentStageKey, nextStage);
-    }
 }

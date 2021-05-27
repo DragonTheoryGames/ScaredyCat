@@ -14,31 +14,31 @@ public class PowersManager : MonoBehaviour {
     bool cardsFilled = false;
     int selectedCardValue;
 
-    [SerializeField] int springTalismanRank = 1;
-    [SerializeField] int summerTalismanRank = 1;
-    [SerializeField] int autumnTalismanRank = 1;
-    [SerializeField] int winterTalismanRank = 1;
+    [SerializeField] public static int springTalismanRank = 1;
+    [SerializeField] public static int summerTalismanRank = 1;
+    [SerializeField] public static int autumnTalismanRank = 1;
+    [SerializeField] public static int winterTalismanRank = 1;
 
-    [SerializeField] int springCost = 0;
-    [SerializeField] int springSpeed = 0;
-    [SerializeField] int springPower = 0;
+    [SerializeField] public static int springCost = 0;
+    [SerializeField] public static int springSpeed = 0;
+    [SerializeField] public static int springPower = 0;
 
-    [SerializeField] int summerCost = 0;
-    [SerializeField] int summerSpeed = 0;
-    [SerializeField] int summerPower = 0;
+    [SerializeField] public static int summerCost = 0;
+    [SerializeField] public static int summerSpeed = 0;
+    [SerializeField] public static int summerPower = 0;
 
-    [SerializeField] int autumnCost = 0;
-    [SerializeField] int autumnSpeed = 0;
-    [SerializeField] int autumnPower = 0;
+    [SerializeField] public static int autumnCost = 0;
+    [SerializeField] public static int autumnSpeed = 0;
+    [SerializeField] public static int autumnPower = 0;
 
-    [SerializeField] int winterCost = 0;
-    [SerializeField] int winterPower = 0;
+    [SerializeField] public static int winterCost = 0;
+    [SerializeField] public static int winterPower = 10;
 
-    [SerializeField] int maxEnergy = 0;
-    [SerializeField] int maxSanity = 0;
-    [SerializeField] int sanityDefense = 0;
-    [SerializeField] int sanityRegen = 0;
-    [SerializeField] int xpBonus = 0;
+    [SerializeField] public static int maxEnergy = 0;
+    [SerializeField] public static int maxSanity = 0;
+    [SerializeField] public static int sanityDefense = 0;
+    [SerializeField] public static int sanityRegen = 0;
+    [SerializeField] public static int xpBonus = 0;
 
     void Start() {
         SetPowers();
